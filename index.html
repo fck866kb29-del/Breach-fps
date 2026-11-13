@@ -451,7 +451,7 @@ function pollController(dt){
  if(!p){
   if(padConnected){padConnected=false;padIndex=-1;padActive=false;padPrevious=[];root.classList.remove('pad-connected');
    $('bxPadInfo').textContent='GAMEPAD: CONNECT TO PLAY'}
-  padLX=padLY=padLookX=padLookY=0;padADS=padFire=padSprint=false;
+  padLX=padLY=padLookX=padLookY=0;padADS=padFire=padSprint=false;ads=mouseAdsHeld||touchAdsHeld;
   return;
  }
  if(p.index!==padIndex){padIndex=p.index;padPrevious=[]}
