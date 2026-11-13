@@ -117,8 +117,8 @@
    <button id="bxFullClose">GOT IT</button>
   </div>
  </div>
- <div class="overlay" id="bxOverlay"><div class="menu"><div class="kicker">GUNPLAY V1 // WEBGL</div><h2 id="bxTitle">BREACH<span>.</span><br>DOCK 07</h2><p class="desc" id="bxDesc">Drop into an industrial combat arena with procedural textures, detailed shipping containers, and animated 3D opponents. Headshots eliminate instantly; body shots require multiple hits.<br><br><b>Desktop:</b> WASD to move, mouse to look, left-click to fire, right-click to aim, Shift to sprint, Space to jump, R to reload, and 1/2 to switch weapons.<br><b>Mobile:</b> Use the virtual joystick and drag to look around. Hold AIM to zoom; release to return. Use FULLSCREEN to learn how to launch without Safari bars.</p><div class="chips"><span>TRUE 3D</span><span>TEXTURES + LIGHTING</span><span>8 BOTS</span><span>2 WEAPONS</span></div><button class="primary" id="bxStart">START MATCH ›</button></div></div>
-</div><div class="footer"><b>BREACH // DOCK 07 · TOUCH FIX V1</b> · WebGL arena with responsive weapon kick, smooth aim-down-sights and gentle recoil recovery. Each weapon has its own firing feel. Lower graphics quality if needed.</div></div>
+ <div class="overlay" id="bxOverlay"><div class="menu"><div class="kicker">CONTROLLER V1 // WEBGL</div><h2 id="bxTitle">BREACH<span>.</span><br>DOCK 07</h2><p class="desc" id="bxDesc">Drop into an industrial combat arena with procedural textures, detailed shipping containers, and animated 3D opponents. Headshots eliminate instantly; body shots require multiple hits.<br><br><b>Desktop:</b> WASD to move, mouse to look, left-click to fire, right-click to aim, Shift to sprint, Space to jump, R to reload, and 1/2 to switch weapons.<br><b>Controller:</b> Left stick move, right stick look, LT/L2 aim, RT/R2 fire, A/Cross jump, X/Square reload, Y/Triangle swap, L3 sprint, Start pause.<br><b>Mobile testing:</b> Touch controls are temporarily available.</p><div class="chips"><span>TRUE 3D</span><span>TEXTURES + LIGHTING</span><span>8 BOTS</span><span>2 WEAPONS</span><span id="bxPadInfo">GAMEPAD: CONNECT TO PLAY</span></div><button class="primary" id="bxStart">START MATCH ›</button></div></div>
+</div><div class="footer"><b>BREACH // DOCK 07 · CONTROLLER V1</b> · WebGL arena with responsive weapon kick, smooth aim-down-sights and gentle recoil recovery. Each weapon has its own firing feel. Lower graphics quality if needed.</div></div>
 <script>
 (()=>{
 'use strict';const root=document.getElementById('breachX');if(root.dataset.initialized)return;root.dataset.initialized='1';
@@ -282,7 +282,7 @@ const dynamicBuffer=gl.createBuffer();let eyeRight=[1,0,0],eyeUp=[0,1,0],eyeForw
 function bindAndDraw(mesh){gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buf);gl.vertexAttribPointer(attrs.aPos,3,gl.FLOAT,false,stride,0);gl.vertexAttribPointer(attrs.aNormal,3,gl.FLOAT,false,stride,12);gl.vertexAttribPointer(attrs.aUV,2,gl.FLOAT,false,stride,24);gl.vertexAttribPointer(attrs.aTint,3,gl.FLOAT,false,stride,32);gl.drawArrays(gl.TRIANGLES,0,mesh.count)}
 function rayBlocked(x,z,xx,zz){let d=Math.hypot(xx-x,zz-z),steps=Math.ceil(d/.18);for(let i=1;i<steps;i++){let t=i/steps,X=x+(xx-x)*t,Z=z+(zz-z)*t;for(let o of obstacles){if(o.h>1.2&&Math.abs(X-o.x)<o.w/2&&Math.abs(Z-o.z)<o.d/2)return true}}return false}
 function coll(x,z,r=.26){if(Math.abs(x)>20.9-r||Math.abs(z)>20.9-r)return true;return obstacles.some(o=>o.h>1.2&&Math.abs(x-o.x)<o.w/2+r&&Math.abs(z-o.z)<o.d/2+r)}
-let viewKickPitch=0,viewKickYaw=0,shotChain=0,shotWindow=0,gunSideKick=0,adsBlend=0;let lowFpsSeconds=0,autoQuality=true;const portraitScreen=window.matchMedia('(pointer:coarse) and (orientation: portrait)');let helpWasPaused=false;let playing=false,paused=false,clock=180,kills=0,streak=0,best=0,gun=0,fireCD=0,reloadCD=0,flash=0,kick=0,hitCD=0,noticeCD=0,damageCD=0,spawnCD=0,ads=false,sprint=false,firing=false,joyX=0,joyY=0,joyId=null,lookId=null,lastX=0,lastY=0,last=0,walk=0,shells=[],tracers=[],sparks=[],feeds=[],keys={},quality=1,fps=60,frames=0,fpsAccum=0,audio=null,muted=false,shotNoiseBuffer=null;
+let viewKickPitch=0,viewKickYaw=0,shotChain=0,shotWindow=0,gunSideKick=0,adsBlend=0;let padLX=0,padLY=0,padLookX=0,padLookY=0,padADS=false,padFire=false,padSprint=false,padConnected=false,padActive=false,padAimAssist=true,padPrevious=[],padIndex=-1,mouseAdsHeld=false,touchAdsHeld=false;let lowFpsSeconds=0,autoQuality=true;const portraitScreen=window.matchMedia('(pointer:coarse) and (orientation: portrait)');let helpWasPaused=false;let playing=false,paused=false,clock=180,kills=0,streak=0,best=0,gun=0,fireCD=0,reloadCD=0,flash=0,kick=0,hitCD=0,noticeCD=0,damageCD=0,spawnCD=0,ads=false,sprint=false,firing=false,joyX=0,joyY=0,joyId=null,lookId=null,lastX=0,lastY=0,last=0,walk=0,shells=[],tracers=[],sparks=[],feeds=[],keys={},quality=1,fps=60,frames=0,fpsAccum=0,audio=null,muted=false,shotNoiseBuffer=null;
 const player={x:0,z:-17,yaw:Math.PI/2,pitch:0,y:1.67,jump:0,vy:0,hp:100,protect:1.5};
 const guns=[{name:'BR-7 · CARBINE',ammo:30,max:30,stock:150,damage:26,delay:.106,spread:.008,verticalKick:.0059,sideKick:.0011,maxClimb:.078,visualKick:.53},{name:'VXR-9 · SMG',ammo:40,max:40,stock:200,damage:21,delay:.07,spread:.016,verticalKick:.0036,sideKick:.0016,maxClimb:.061,visualKick:.40}];
 const spawnPoints=[[1,-8],[8,-5],[-8,-5],[6,13],[-5,13],[13,15],[-15,8],[14,-13],[0,15]];
@@ -290,7 +290,7 @@ let bots=[];function newBot(i){let q=spawnPoints[i%spawnPoints.length];return{x:
 function hud(){let g=guns[gun];$('bxKills').textContent=kills;$('bxStreak').textContent='STREAK '+streak;$('bxHealth').textContent=Math.round(player.hp);$('bxHealthFill').style.width=player.hp+'%';$('bxGun').textContent=g.name;$('bxAmmo').textContent=g.ammo;$('bxStock').textContent=g.stock;let n=Math.ceil(Math.max(0,clock));$('bxClock').textContent=String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
 function banner(s){$('bxBanner').textContent=s;noticeCD=1.25}
 function end(){playing=false;firing=false;ads=false;paused=false;$('bxOverlay').style.display='flex';$('bxTitle').innerHTML=kills>=20?'VICTORY<span>.</span>':'MATCH<span>.</span> OVER';$('bxDesc').textContent=`${kills} eliminations. Best streak: ${best}. Play again!`;$('bxStart').textContent='PLAY AGAIN ›';$('bxStart').dataset.resume='no';document.exitPointerLock?.()}
-function start(){playing=true;paused=false;clock=180;kills=streak=best=gun=0;fireCD=reloadCD=flash=kick=hitCD=noticeCD=damageCD=spawnCD=0;viewKickPitch=viewKickYaw=gunSideKick=adsBlend=shotWindow=shotChain=0;firing=ads=sprint=false;tracers=[];sparks=[];shells=[];feeds=[];player.x=0;player.z=-17;player.yaw=Math.PI/2;player.pitch=0;player.y=1.67;player.jump=player.vy=0;player.hp=100;player.protect=1.6;for(let g of guns){g.ammo=g.max;g.stock=g.max*5}bots=Array.from({length:8},(_,i)=>newBot(i));$('bxOverlay').style.display='none';$('bxFeed').innerHTML='';hud();root.focus({preventScroll:true});last=performance.now()}
+function start(){playing=true;paused=false;clock=180;kills=streak=best=gun=0;fireCD=reloadCD=flash=kick=hitCD=noticeCD=damageCD=spawnCD=0;viewKickPitch=viewKickYaw=gunSideKick=adsBlend=shotWindow=shotChain=0;firing=ads=sprint=false;padFire=padADS=false;touchAdsHeld=mouseAdsHeld=false;tracers=[];sparks=[];shells=[];feeds=[];player.x=0;player.z=-17;player.yaw=Math.PI/2;player.pitch=0;player.y=1.67;player.jump=player.vy=0;player.hp=100;player.protect=1.6;for(let g of guns){g.ammo=g.max;g.stock=g.max*5}bots=Array.from({length:8},(_,i)=>newBot(i));$('bxOverlay').style.display='none';$('bxFeed').innerHTML='';hud();root.focus({preventScroll:true});last=performance.now()}
 function togglePause(){if(!playing)return;paused=!paused;if(paused){firing=false;ads=false;$('bxOverlay').style.display='flex';$('bxTitle').innerHTML='PAUSED<span>.</span>';$('bxDesc').textContent='The match is paused. Resume whenever you are ready.';$('bxStart').textContent='RESUME ›';$('bxStart').dataset.resume='yes';document.exitPointerLock?.()}else{$('bxOverlay').style.display='none';last=performance.now()}}
 // Lightweight, original synthetic gunshot: a crisp noise crack layered with a low punch.
 function noiseShot(){
@@ -354,8 +354,8 @@ adsBlend+=(Number(ads)-adsBlend)*(1-Math.exp(-(ads?18:14)*dt));
 fireCD=Math.max(0,fireCD-dt);flash=Math.max(0,flash-dt);kick=Math.max(0,kick-dt*5.1);hitCD=Math.max(0,hitCD-dt);noticeCD=Math.max(0,noticeCD-dt);damageCD=Math.max(0,damageCD-dt);player.protect=Math.max(0,player.protect-dt);for(let s of tracers)s.life-=dt;tracers=tracers.filter(x=>x.life>0);for(let s of shells){s.life-=dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=330*dt}shells=shells.filter(x=>x.life>0);for(let s of sparks)s.life-=dt;sparks=sparks.filter(x=>x.life>0);
  if(reloadCD>0){reloadCD-=dt;if(reloadCD<=0){let g=guns[gun],n=Math.min(g.stock,g.max-g.ammo);g.stock-=n;g.ammo+=n;hud()}}
  if(player.hp<=0){spawnCD-=dt;if(spawnCD<=0){player.x=0;player.z=-17;player.hp=100;player.protect=2;hud()}}else{
- let forward=(keys.KeyW||keys.ArrowUp?1:0)-(keys.KeyS||keys.ArrowDown?1:0)-joyY;let side=(keys.KeyD?1:0)-(keys.KeyA?1:0)+joyX;let n=hyp(forward,side);if(n>1){forward/=n;side/=n}let speed=dt*(ads?2.2:sprint||keys.ShiftLeft?5.2:3.5),dx=(Math.cos(player.yaw)*forward-Math.sin(player.yaw)*side)*speed,dz=(Math.sin(player.yaw)*forward+Math.cos(player.yaw)*side)*speed;
- if(!coll(player.x+dx,player.z))player.x+=dx;if(!coll(player.x,player.z+dz))player.z+=dz;walk+=dt*(n>.15?15:2);if(keys.ArrowLeft)player.yaw-=dt*1.9;if(keys.ArrowRight)player.yaw+=dt*1.9;player.jump=Math.max(0,player.jump+player.vy*dt);player.vy-=13*dt;if(player.jump<=0){player.jump=0;player.vy=Math.max(0,player.vy)}if(firing||keys.KeyF)shoot()}
+ let forward=(keys.KeyW||keys.ArrowUp?1:0)-(keys.KeyS||keys.ArrowDown?1:0)-joyY-padLY;let side=(keys.KeyD?1:0)-(keys.KeyA?1:0)+joyX+padLX;let n=hyp(forward,side);if(n>1){forward/=n;side/=n}let speed=dt*(ads?2.2:sprint||padSprint||keys.ShiftLeft?5.2:3.5),dx=(Math.cos(player.yaw)*forward-Math.sin(player.yaw)*side)*speed,dz=(Math.sin(player.yaw)*forward+Math.cos(player.yaw)*side)*speed;
+ if(!coll(player.x+dx,player.z))player.x+=dx;if(!coll(player.x,player.z+dz))player.z+=dz;walk+=dt*(n>.15?15:2);if(keys.ArrowLeft)player.yaw-=dt*1.9;if(keys.ArrowRight)player.yaw+=dt*1.9;player.jump=Math.max(0,player.jump+player.vy*dt);player.vy-=13*dt;if(player.jump<=0){player.jump=0;player.vy=Math.max(0,player.vy)}if(firing||padFire||keys.KeyF)shoot()}
  for(let i=0;i<bots.length;i++){let b=bots[i];if(!b.alive){b.dead=Math.min(1,b.dead+dt*1.6);b.respawn-=dt;if(b.respawn<=0)bots[i]=newBot(i);continue}b.hit=Math.max(0,b.hit-dt);b.shot-=dt;b.anim+=dt*8;let vx=player.x-b.x,vz=player.z-b.z,d=hyp(vx,vz),seen=d<15&&!rayBlocked(b.x,b.z,player.x,player.z);if(seen&&player.hp>0){b.heading=Math.atan2(vz,vx);let sidex=-vz/d*b.strafe,sidez=vx/d*b.strafe;if(d>2.6){let mvx=(vx/d*.64+sidex*.24)*dt,mvz=(vz/d*.64+sidez*.24)*dt;if(!coll(b.x+mvx,b.z,.24))b.x+=mvx;if(!coll(b.x,b.z+mvz,.24))b.z+=mvz}if(b.shot<=0){b.shot=rnd(.9,1.8);if(d<11&&player.protect===0&&Math.random()<(d<5?.72:.4)){player.hp=Math.max(0,player.hp-rnd(8,15));damageCD=.6;hud();if(player.hp===0){streak=0;spawnCD=2;banner('YOU WERE ELIMINATED')}}}}else{b.t-=dt;if(b.t<=0){b.t=rnd(.5,1.7);b.angle=rnd(-Math.PI,Math.PI)}let m=.35*dt;if(!coll(b.x+Math.cos(b.angle)*m,b.z+Math.sin(b.angle)*m))b.x+=Math.cos(b.angle)*m;b.z+=Math.sin(b.angle)*m*.5}}
  $('bxBanner').style.opacity=Math.min(1,noticeCD*3);$('bxHit').style.opacity=hitCD>0?1:0;$('bxCross').style.opacity=1-adsBlend*.76;hud()}
 // Animated articulated troopers assembled from boxes in local coordinates.
@@ -395,8 +395,90 @@ function render(){graphicsSize();gl.useProgram(program);gl.activeTexture(gl.TEXT
  // Viewmodel uses a separate depth pass and smooth ADS + recoil movement.
  if(playing&&!paused){gl.clear(gl.DEPTH_BUFFER_BIT);gl.uniform1f(U.uWeapon,1);let sw=Math.sin(walk)*.007,sh=Math.abs(Math.cos(walk))*.008,aimX=.31*(1-adsBlend),aimY=-.41+.14*adsBlend;gl.uniform1f(U.uWeaponTilt,gunSideKick*.055+kick*.025);gl.uniform3f(U.uGunOffset,aimX+sw+gunSideKick*.045,aimY+sh-kick*.095,.36-kick*.08);bindAndDraw(gunMesh)}
  drawRadar();drawEffects()}
-function loop(t){let dt=Math.min(.048,Math.max(0,(t-last)/1000));last=t;update(dt);render();frames++;fpsAccum+=dt;if(fpsAccum>=1){fps=Math.round(frames/fpsAccum);frames=0;fpsAccum=0;$('bxFps').textContent=fps+' FPS';if(playing&&!paused&&autoQuality&&quality>0){lowFpsSeconds=fps<38?lowFpsSeconds+1:Math.max(0,lowFpsSeconds-1);if(lowFpsSeconds>=3){quality--;lowFpsSeconds=0;$('bxQuality').textContent=['GRAPHICS: LOW','GRAPHICS: MEDIUM','GRAPHICS: HIGH'][quality];banner('PERFORMANCE MODE')}}}requestAnimationFrame(loop)}
-function look(dx,dy,mobile){let k=mobile?.005:.0034;player.yaw+=dx*k*(ads?.65:1);player.pitch=clamp(player.pitch-dy*k*(ads?.65:1),-1.35,1.35)}
+function loop(t){let dt=Math.min(.048,Math.max(0,(t-last)/1000));last=t;pollController(dt);update(dt);render();frames++;fpsAccum+=dt;if(fpsAccum>=1){fps=Math.round(frames/fpsAccum);frames=0;fpsAccum=0;$('bxFps').textContent=fps+' FPS';if(playing&&!paused&&autoQuality&&quality>0){lowFpsSeconds=fps<38?lowFpsSeconds+1:Math.max(0,lowFpsSeconds-1);if(lowFpsSeconds>=3){quality--;lowFpsSeconds=0;$('bxQuality').textContent=['GRAPHICS: LOW','GRAPHICS: MEDIUM','GRAPHICS: HIGH'][quality];banner('PERFORMANCE MODE')}}}requestAnimationFrame(loop)}
+// Standard Gamepad API (Xbox / DualSense). Controller-only aim assist.
+function radialDeadzone(x,y,dz=.12){
+ const d=Math.hypot(x,y);if(d<=dz)return[0,0];
+ const k=Math.min(1,(d-dz)/(1-dz))/d;return[x*k,y*k];
+}
+function aimCurve(v){return Math.sign(v)*(.3*Math.abs(v)+.7*v*v)}
+function wrapAngle(a){return Math.atan2(Math.sin(a),Math.cos(a))}
+function aimAssistTarget(){
+ if(!padAimAssist||!padActive)return null;
+ const cameraYaw=player.yaw+viewKickYaw,cameraPitch=player.pitch+viewKickPitch;
+ let chosen=null,best=1.2;
+ for(const b of bots){
+  if(!b.alive)continue;
+  const dx=b.x-player.x,dz=b.z-player.z,d=Math.hypot(dx,dz);
+  if(d<.7||d>16||rayBlocked(player.x,player.z,b.x,b.z))continue;
+  // The assist zone uses body centre: it cannot snap to a headshot.
+  const targetYaw=Math.atan2(dz,dx),targetPitch=Math.atan2(1.13-player.y-player.jump,d);
+  const yawError=wrapAngle(targetYaw-cameraYaw),pitchError=targetPitch-cameraPitch;
+  const yawRange=Math.atan2(.48,d)+.025,pitchRange=Math.atan2(.63,d)+.025;
+  const proximity=Math.hypot(yawError/yawRange,pitchError/pitchRange);
+  if(proximity<best){best=proximity;chosen={yawError,pitchError,proximity}}
+ }
+ return chosen;
+}
+function applyPadLook(dt){
+ const magnitude=Math.hypot(padLookX,padLookY);if(magnitude<.001)return;
+ const near=aimAssistTarget();
+ const strength=near?Math.pow(Math.max(0,1-near.proximity/1.2),1.35):0;
+ // Friction slows the right stick at most 32% near a visible target.
+ const slowdown=1-strength*(ads?.32:.24);
+ const base=2.55*(ads?.70:1),x=aimCurve(padLookX),y=aimCurve(padLookY);
+ player.yaw+=x*base*slowdown*dt;
+ player.pitch=clamp(player.pitch-y*base*slowdown*dt,-1.35,1.35);
+ if(near&&near.proximity<.70&&magnitude>.24){
+  // Micro-correction happens only while the player ALREADY steers toward the bot.
+  // Cap: 0.043 radians / second (~2.5 degrees / second), no sticky lock.
+  if(x*near.yawError-y*near.pitchError>.015){
+   const len=Math.hypot(near.yawError,near.pitchError)||1;
+   const factor=Math.min(.043*strength*dt,len)/len;
+   player.yaw+=near.yawError*factor;
+   player.pitch=clamp(player.pitch+near.pitchError*factor,-1.35,1.35);
+  }
+ }
+}
+function pollController(dt){
+ let pads=[];
+ try{pads=navigator.getGamepads?Array.from(navigator.getGamepads()):[]}catch(_){}
+ const p=pads.find(g=>g&&g.connected&&g.mapping==='standard');
+ if(!p){
+  if(padConnected){padConnected=false;padIndex=-1;padActive=false;padPrevious=[];
+   $('bxPadInfo').textContent='GAMEPAD: CONNECT TO PLAY'}
+  padLX=padLY=padLookX=padLookY=0;padADS=padFire=padSprint=false;
+  return;
+ }
+ if(p.index!==padIndex){padIndex=p.index;padPrevious=[]}
+ if(!padConnected){
+  padConnected=true;$('bxPadInfo').textContent='GAMEPAD CONNECTED · AIM ASSIST ON';
+  if(playing&&!paused)banner('CONTROLLER CONNECTED');
+ }
+ const buttons=p.buttons||[],pressed=i=>!!buttons[i]&&(buttons[i].pressed||buttons[i].value>.5);
+ const edge=i=>pressed(i)&&!padPrevious[i],axes=p.axes||[];
+ [padLX,padLY]=radialDeadzone(axes[0]||0,axes[1]||0,.14);
+ [padLookX,padLookY]=radialDeadzone(axes[2]||0,axes[3]||0,.11);
+ if(Math.hypot(padLookX,padLookY)>.015)padActive=true;
+ if(!playing||paused){
+  if(edge(9)||edge(0)){
+   if(playing)togglePause();
+   else $('bxStart').click();
+  }
+ }else if(!portraitScreen.matches){
+  if(edge(9))togglePause();
+  if(edge(0)&&player.jump===0&&player.hp>0)player.vy=5.4;
+  if(edge(2))reloadGun();
+  if(edge(3)||edge(1))swapGun();
+  if(!paused){
+   padADS=pressed(6);padFire=pressed(7);padSprint=pressed(10)||pressed(4);
+   ads=padADS||mouseAdsHeld||touchAdsHeld;
+   applyPadLook(dt);
+  }
+ }
+ padPrevious=Array.from({length:buttons.length},(_,i)=>pressed(i));
+}
+function look(dx,dy,mobile){padActive=false;let k=mobile?.005:.0034;player.yaw+=dx*k*(ads?.65:1);player.pitch=clamp(player.pitch-dy*k*(ads?.65:1),-1.35,1.35)}
 // Avoid browser pinch and double-tap zoom during active gameplay.
 function isGameplayTarget(target){
  return target instanceof Element && !!target.closest('#bxWorld,.touch');
@@ -433,18 +515,18 @@ document.addEventListener('fullscreenchange',()=>{
 });
 $('bxStart').addEventListener('click',()=>{if($('bxStart').dataset.resume==='yes'){paused=false;$('bxOverlay').style.display='none';last=performance.now()}else start()});$('bxPause').addEventListener('click',togglePause);$('bxReload').addEventListener('pointerdown',e=>{e.preventDefault();reloadGun()});// AIM behaves like holding the right mouse button, not a persistent zoom toggle.
 const aimButton=$('bxAds');
-function resetAimButton(){ads=false;aimButton.style.background=''}
+function resetAimButton(){touchAdsHeld=false;ads=padADS||mouseAdsHeld;aimButton.style.background=''}
 aimButton.addEventListener('pointerdown',e=>{
  e.preventDefault();if(!playing||paused)return;
- ads=true;aimButton.style.background='#397b57';
+ touchAdsHeld=true;ads=true;aimButton.style.background='#397b57';
  try{aimButton.setPointerCapture(e.pointerId)}catch(_){}
 });
 for(const ev of ['pointerup','pointercancel','lostpointercapture'])aimButton.addEventListener(ev,resetAimButton);$('bxSprint').addEventListener('pointerdown',e=>{e.preventDefault();sprint=!sprint;e.currentTarget.style.background=sprint?'#397b57':''});$('bxJump').addEventListener('pointerdown',e=>{e.preventDefault();if(!player.jump&&playing)player.vy=5.4});
 $('bxSound').addEventListener('click',()=>{muted=!muted;$('bxSound').textContent=muted?'SOUND OFF':'SOUND ON'});$('bxQuality').addEventListener('click',()=>{autoQuality=false;quality=(quality+1)%3;lowFpsSeconds=0;$('bxQuality').textContent=['GRAPHICS: LOW','GRAPHICS: MEDIUM','GRAPHICS: HIGH'][quality]});$('bxLock').addEventListener('click',()=>{if(!playing||paused)return;if(document.pointerLockElement===canvas)document.exitPointerLock?.();else canvas.requestPointerLock?.()});
 let fireButton=$('bxFire');fireButton.addEventListener('pointerdown',e=>{e.preventDefault();firing=true;fireButton.setPointerCapture(e.pointerId);shoot()});for(let ev of ['pointerup','pointercancel','lostpointercapture'])fireButton.addEventListener(ev,()=>firing=false);
 let joy=$('bxJoy'),nub=$('bxNub');function dragJoy(e){let r=joy.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2,l=hyp(x,y),m=Math.min(1,l/42);joyX=l?x/l*m:0;joyY=l?y/l*m:0;nub.style.transform=`translate(${joyX*33}px,${joyY*33}px)`}joy.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;joy.setPointerCapture(e.pointerId);dragJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)dragJoy(e)});function clearJoy(){joyId=null;joyX=joyY=0;nub.style.transform=''}joy.addEventListener('pointerup',clearJoy);joy.addEventListener('pointercancel',clearJoy);
-canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('pointerdown',e=>{if(!playing||paused)return;root.focus({preventScroll:true});lookId=e.pointerId;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);if(e.pointerType==='mouse'){if(e.button===2)ads=true;else if(e.button===0){firing=true;shoot()}}});canvas.addEventListener('pointermove',e=>{if(document.pointerLockElement===canvas||lookId!==e.pointerId)return;look(e.clientX-lastX,e.clientY-lastY,e.pointerType!=='mouse');lastX=e.clientX;lastY=e.clientY});canvas.addEventListener('pointerup',e=>{lookId=null;firing=false;if(e.pointerType==='mouse'&&e.button===2)ads=false});canvas.addEventListener('pointercancel',()=>{lookId=null;firing=false});document.addEventListener('mousemove',e=>{if(document.pointerLockElement===canvas&&playing&&!paused)look(e.movementX,e.movementY,false)});
-window.addEventListener('keydown',e=>{if(!playing||paused||!(document.activeElement===root||root.contains(document.activeElement)))return;keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(!e.repeat){if(e.code==='KeyR')reloadGun();if(e.code==='Space'&&!player.jump)player.vy=5.4;if(e.code==='Digit1'||e.code==='Digit2'){gun=e.code==='Digit1'?0:1;reloadCD=0;hud()}if(e.code==='Escape'&&document.pointerLockElement!==canvas)togglePause()}});window.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{keys={};firing=false;resetAimButton()});window.addEventListener('orientationchange',()=>{keys={};firing=false;last=performance.now()});
+canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('pointerdown',e=>{if(!playing||paused)return;if(e.pointerType==='mouse')padActive=false;root.focus({preventScroll:true});lookId=e.pointerId;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);if(e.pointerType==='mouse'){if(e.button===2){mouseAdsHeld=true;ads=true}else if(e.button===0){firing=true;shoot()}}});canvas.addEventListener('pointermove',e=>{if(document.pointerLockElement===canvas||lookId!==e.pointerId)return;look(e.clientX-lastX,e.clientY-lastY,e.pointerType!=='mouse');lastX=e.clientX;lastY=e.clientY});canvas.addEventListener('pointerup',e=>{lookId=null;firing=false;if(e.pointerType==='mouse'&&e.button===2){mouseAdsHeld=false;ads=padADS||touchAdsHeld}});canvas.addEventListener('pointercancel',()=>{lookId=null;firing=false});document.addEventListener('mousemove',e=>{if(document.pointerLockElement===canvas&&playing&&!paused)look(e.movementX,e.movementY,false)});
+window.addEventListener('keydown',e=>{if(!playing||paused||!(document.activeElement===root||root.contains(document.activeElement)))return;keys[e.code]=true;padActive=false;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(!e.repeat){if(e.code==='KeyR')reloadGun();if(e.code==='Space'&&!player.jump)player.vy=5.4;if(e.code==='Digit1'||e.code==='Digit2'){gun=e.code==='Digit1'?0:1;reloadCD=0;hud()}if(e.code==='Escape'&&document.pointerLockElement!==canvas)togglePause()}});window.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{keys={};firing=false;mouseAdsHeld=false;resetAimButton()});window.addEventListener('orientationchange',()=>{keys={};firing=false;last=performance.now()});
 quality=window.matchMedia?.('(pointer:coarse)').matches?1:2;$('bxQuality').textContent=quality===0?'GRAPHICS: LOW':'GRAPHICS: MEDIUM';last=performance.now();requestAnimationFrame(loop);
 })();
 </script></html>
