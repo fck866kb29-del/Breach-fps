@@ -81,6 +81,10 @@
  #breachX .chips span{padding:4px 5px;font-size:8px}
  #breachX .primary{padding:9px 20px;font-size:12px}
 }
+/* Controller options are visible only when a compatible gamepad is connected. */
+#breachX #bxAssist{display:none}
+#breachX.pad-connected #bxAssist{display:inline-flex}
+@media(pointer:coarse) and (orientation:landscape){#breachX #bxAssist{font-size:9px;padding:4px 6px}}
 /* TOUCH AND FULLSCREEN: suppress accidental browser gestures inside gameplay only. */
 #breachX .stage,#breachX .world,#breachX .touch,#breachX .ctrl,#breachX .joy{touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #breachX .settings button,#breachX .overlay button,#breachX .fullscreenHelp button{touch-action:manipulation}
@@ -107,7 +111,7 @@
 <div class="hud"><div class="top"><canvas class="mini" id="bxRadar" width="128" height="128"></canvas><div class="topmid plaque"><div class="overline">FREE FOR ALL · DOCK 07</div><div class="clock" id="bxClock">03:00</div><div class="overline green">INDUSTRIAL YARD</div></div><div class="stats plaque">ELIMINATIONS<br><strong><span id="bxKills">0</span>/20</strong><br><span id="bxStreak">STREAK 0</span><div class="fps" id="bxFps">WEBGL</div></div></div>
 <div class="cross" id="bxCross"><i></i><i></i><i></i><i></i></div><div class="reticle" id="bxHit">✕</div><div class="banner" id="bxBanner"></div><div class="feed" id="bxFeed"></div>
 <div class="bottom"><div><div class="sm">♥ HEALTH</div><div class="big" id="bxHealth">100</div><div class="healthbar"><i id="bxHealthFill"></i></div></div><div style="text-align:right"><div class="sm" id="bxGun">BR-7 · CARBINE</div><div class="big"><span id="bxAmmo">30</span><span style="font-size:15px;color:#adc7c4"> / <span id="bxStock">150</span></span></div></div></div></div>
-<div class="settings"><button id="bxQuality">GRAPHICS: AUTO</button><button id="bxSound" aria-label="Toggle game sound">SOUND ON</button><button id="bxFull" aria-label="Fullscreen or install instructions">FULLSCREEN</button><button id="bxLock">LOCK MOUSE</button><button id="bxPause">PAUSE</button></div>
+<div class="settings"><button id="bxQuality">GRAPHICS: AUTO</button><button id="bxSound" aria-label="Toggle game sound">SOUND ON</button><button id="bxAssist" aria-label="Toggle controller aim assist" title="Aim assist only affects connected controllers">ASSIST: ON</button><button id="bxFull" aria-label="Fullscreen or install instructions">FULLSCREEN</button><button id="bxLock">LOCK MOUSE</button><button id="bxPause">PAUSE</button></div>
 <div class="touch"><div class="joy" id="bxJoy"><div class="nub" id="bxNub"></div></div><button class="ctrl sprint" id="bxSprint">SPRINT</button><button class="ctrl fire" id="bxFire">FIRE</button><button class="ctrl ads" id="bxAds">AIM</button><button class="ctrl reload" id="bxReload">RELOAD</button><button class="ctrl jump" id="bxJump">JUMP</button></div>
 <div class="fullscreenHelp" id="bxFullHelp" hidden role="dialog" aria-label="Play fullscreen">
   <div class="fullscreenCard">
@@ -445,14 +449,14 @@ function pollController(dt){
  try{pads=navigator.getGamepads?Array.from(navigator.getGamepads()):[]}catch(_){}
  const p=pads.find(g=>g&&g.connected&&g.mapping==='standard');
  if(!p){
-  if(padConnected){padConnected=false;padIndex=-1;padActive=false;padPrevious=[];
+  if(padConnected){padConnected=false;padIndex=-1;padActive=false;padPrevious=[];root.classList.remove('pad-connected');
    $('bxPadInfo').textContent='GAMEPAD: CONNECT TO PLAY'}
   padLX=padLY=padLookX=padLookY=0;padADS=padFire=padSprint=false;
   return;
  }
  if(p.index!==padIndex){padIndex=p.index;padPrevious=[]}
  if(!padConnected){
-  padConnected=true;$('bxPadInfo').textContent='GAMEPAD CONNECTED · AIM ASSIST ON';
+  padConnected=true;root.classList.add('pad-connected');$('bxPadInfo').textContent='GAMEPAD CONNECTED · AIM ASSIST '+(padAimAssist?'ON':'OFF');
   if(playing&&!paused)banner('CONTROLLER CONNECTED');
  }
  const buttons=p.buttons||[],pressed=i=>!!buttons[i]&&(buttons[i].pressed||buttons[i].value>.5);
@@ -522,6 +526,12 @@ aimButton.addEventListener('pointerdown',e=>{
  try{aimButton.setPointerCapture(e.pointerId)}catch(_){}
 });
 for(const ev of ['pointerup','pointercancel','lostpointercapture'])aimButton.addEventListener(ev,resetAimButton);$('bxSprint').addEventListener('pointerdown',e=>{e.preventDefault();sprint=!sprint;e.currentTarget.style.background=sprint?'#397b57':''});$('bxJump').addEventListener('pointerdown',e=>{e.preventDefault();if(!player.jump&&playing)player.vy=5.4});
+$('bxAssist').addEventListener('click',()=>{
+ padAimAssist=!padAimAssist;
+ $('bxAssist').textContent=padAimAssist?'ASSIST: ON':'ASSIST: OFF';
+ $('bxPadInfo').textContent='GAMEPAD CONNECTED · AIM ASSIST '+(padAimAssist?'ON':'OFF');
+ if(playing&&!paused)banner(padAimAssist?'CONTROLLER ASSIST ON':'CONTROLLER ASSIST OFF');
+});
 $('bxSound').addEventListener('click',()=>{muted=!muted;$('bxSound').textContent=muted?'SOUND OFF':'SOUND ON'});$('bxQuality').addEventListener('click',()=>{autoQuality=false;quality=(quality+1)%3;lowFpsSeconds=0;$('bxQuality').textContent=['GRAPHICS: LOW','GRAPHICS: MEDIUM','GRAPHICS: HIGH'][quality]});$('bxLock').addEventListener('click',()=>{if(!playing||paused)return;if(document.pointerLockElement===canvas)document.exitPointerLock?.();else canvas.requestPointerLock?.()});
 let fireButton=$('bxFire');fireButton.addEventListener('pointerdown',e=>{e.preventDefault();firing=true;fireButton.setPointerCapture(e.pointerId);shoot()});for(let ev of ['pointerup','pointercancel','lostpointercapture'])fireButton.addEventListener(ev,()=>firing=false);
 let joy=$('bxJoy'),nub=$('bxNub');function dragJoy(e){let r=joy.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2,l=hyp(x,y),m=Math.min(1,l/42);joyX=l?x/l*m:0;joyY=l?y/l*m:0;nub.style.transform=`translate(${joyX*33}px,${joyY*33}px)`}joy.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;joy.setPointerCapture(e.pointerId);dragJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)dragJoy(e)});function clearJoy(){joyId=null;joyX=joyY=0;nub.style.transform=''}joy.addEventListener('pointerup',clearJoy);joy.addEventListener('pointercancel',clearJoy);
