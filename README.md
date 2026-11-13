@@ -15,7 +15,8 @@ You can open `index.html` locally in a modern WebGL-capable browser. To make it 
 
 - Procedurally generated low-poly 3D graphics, textured asphalt, depth-tested solid scenery, and an industrial shipping yard
 - First-person camera with full horizontal and vertical aiming
-- Two weapons, recoil, muzzle flash, hit markers, and multiple hit zones
+- Two weapons with distinct, easy-to-control camera recoil, visual weapon kick, smooth ADS, muzzle flash, hit markers, and multiple hit zones
+- Procedurally generated shot/impact audio with an in-game sound toggle
 - AI opponents, respawns, an elimination counter, and a radar
 - Touch controls and adjustable rendering quality
 
