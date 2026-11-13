@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><title>BREACH: Dock 07 — Browser FPS</title><meta name="description" content="BREACH: Dock 07 is a lightweight, original WebGL first-person shooter you can play in your browser.">
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><title>BREACH: Dock 07 — Browser FPS</title><meta name="description" content="BREACH: Dock 07 is a lightweight, original WebGL first-person shooter you can play in your browser.">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#09141b;color:#ecf5f3;font-family:system-ui,-apple-system,Arial,sans-serif}#breachX{max-width:1000px;margin:0 auto;position:relative;overflow:hidden;border:1px solid #49606a;background:#101d25;border-radius:10px;user-select:none;outline:none;-webkit-user-select:none}#breachX .stage{position:relative;height:min(73vh,620px);min-height:440px;overflow:hidden;touch-action:none;background:linear-gradient(180deg,#527b97 0%,#8db2c1 48%,#c5bca8 100%)}#breachX canvas.world,#breachX canvas.effects{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}#breachX canvas.effects{pointer-events:none}#breachX .vignette{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 75px #09192348}#breachX .hud{position:absolute;inset:0;pointer-events:none;text-shadow:0 2px 6px #000d}#breachX .top{display:flex;align-items:flex-start;justify-content:space-between;padding:12px;gap:9px}#breachX .plaque{background:#101d23be;backdrop-filter:blur(4px);padding:8px 11px;border:1px solid #bdd7d656;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}#breachX .green{color:#b5f4ca}#breachX .mini{width:125px;height:125px;border:1px solid #c2ded762;background:#1e383a99;box-shadow:0 2px 10px #0009}#breachX .topmid{text-align:center}#breachX .overline{font-size:10px;font-weight:900;letter-spacing:2px;color:#daece4}#breachX .clock{font:900 30px system-ui;line-height:1.3}#breachX .stats{text-align:right;font-size:11px;font-weight:850;letter-spacing:.9px}#breachX .stats strong{font-size:25px;color:#b7f4c8}#breachX .bottom{position:absolute;bottom:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:end}#breachX .big{font-size:36px;font-weight:950;line-height:1}#breachX .sm{font-size:10px;letter-spacing:1.8px;font-weight:850;color:#c2e4d7}#breachX .healthbar{width:133px;height:5px;background:#304b4d;margin-top:7px}#breachX .healthbar i{display:block;background:#a8edc2;height:100%;width:100%}#breachX .cross{position:absolute;top:50%;left:50%;width:26px;height:26px;transform:translate(-50%,-50%)}#breachX .cross i{position:absolute;background:#f4f6ebdf;box-shadow:0 0 3px black}#breachX .cross i:nth-child(1){width:2px;height:7px;left:12px;top:0}#breachX .cross i:nth-child(2){width:2px;height:7px;left:12px;bottom:0}#breachX .cross i:nth-child(3){height:2px;width:7px;top:12px;left:0}#breachX .cross i:nth-child(4){height:2px;width:7px;top:12px;right:0}#breachX .reticle{position:absolute;top:43%;left:0;right:0;text-align:center;letter-spacing:2px;font-size:15px;font-weight:950;color:#f8e8a8;opacity:0}#breachX .feed{position:absolute;right:15px;top:97px;text-align:right;font-size:11px;line-height:1.8;color:#e9f8ee}#breachX .banner{position:absolute;top:20%;left:0;right:0;text-align:center;color:#b9f7cd;font-weight:950;font-size:18px;letter-spacing:1px;opacity:0}#breachX .touch{position:absolute;inset:0;pointer-events:none;display:none;z-index:8}#breachX button{font-family:inherit;cursor:pointer;font-weight:900}#breachX .joy{position:absolute;left:20px;bottom:92px;width:112px;height:112px;border-radius:50%;border:2px solid #d6f4e08a;background:#1a454b77;pointer-events:auto;touch-action:none}#breachX .nub{position:absolute;left:33px;top:33px;width:43px;height:43px;border-radius:50%;background:#b5e9cdad;border:1px solid #fff7}#breachX .ctrl{position:absolute;width:59px;height:59px;border-radius:50%;background:#173a40d9;border:1px solid #a8edc6c2;color:white;pointer-events:auto;touch-action:none;font-size:11px}#breachX .fire{right:14px;bottom:90px;width:91px;height:91px;background:#367c54ef;font-size:16px}#breachX .ads{right:20px;bottom:192px}#breachX .reload{right:107px;bottom:193px}#breachX .jump{right:113px;bottom:98px}#breachX .sprint{left:43px;bottom:213px}#breachX .overlay{position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:linear-gradient(120deg,#071820f7 8%,#152d32e8 70%,#111e29ae);padding:24px}#breachX .menu{width:min(510px,100%)}#breachX .kicker{font-size:11px;letter-spacing:3px;font-weight:850;color:#b3f7c9}#breachX h2{font-size:clamp(38px,8vw,68px);font-weight:950;line-height:.98;letter-spacing:-2px;margin:15px 0;color:#f8fffb}#breachX h2 span{color:#b2efc5}#breachX .desc{font-size:13px;font-weight:440;line-height:1.7;color:#d3e5e1;max-width:450px}#breachX .chips{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0}#breachX .chips span{background:#2b4448ad;border:1px solid #78948a8b;padding:6px 9px;font-size:10px;letter-spacing:.7px}#breachX .primary{background:#baf4cd;color:#102820;border:0;padding:16px 28px;border-radius:4px;font-size:14px;letter-spacing:1px}#breachX .settings{position:absolute;left:12px;top:147px;z-index:5;display:flex;gap:6px}#breachX .settings button{font-size:10px;color:#d4f2e6;background:#142b31bb;border:1px solid #94c6af8a;border-radius:3px;padding:6px 8px}#breachX .footer{font-size:11px;color:#accac8;background:#0c1b22;padding:12px 14px;line-height:1.6}#breachX .footer b{color:#d7f8e8}#breachX .fps{font-size:10px;color:#d4e3d9;margin-top:6px}
 @media(pointer:coarse){#breachX .touch{display:block}#breachX .stage{height:590px}#breachX .settings{top:118px}}@media(max-width:560px){#breachX .stage{height:540px;min-height:510px}#breachX .top{padding:8px}#breachX .plaque{padding:6px 7px}#breachX .mini{width:88px;height:88px}#breachX .clock{font-size:23px}#breachX .overline{font-size:8px}#breachX .stats{font-size:9px}#breachX .stats strong{font-size:20px}#breachX .bottom{bottom:10px;left:10px;right:10px}#breachX .big{font-size:26px}#breachX .healthbar{width:87px}#breachX .feed{top:75px;font-size:9px}#breachX .settings{top:105px;left:8px}#breachX h2{font-size:42px}#breachX .desc{font-size:12px}}
@@ -36,8 +36,54 @@
  #breachX .footer{font-size:10px;padding:10px 12px}
  #breachX .bottom{bottom:10px}
 }
+
+/* VISUAL V3: Landscape-first mobile layout. iPhone Safari requires manual rotation. */
+#breachX .rotatePrompt{display:none;position:fixed;inset:0;z-index:200;background:#091820;color:#ddfff0;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px;font-size:14px;line-height:1.45}
+#breachX .rotatePrompt strong{font-size:clamp(22px,6vw,32px);letter-spacing:1.5px}
+#breachX .rotatePrompt span{max-width:280px;color:#a9c9c0}
+#breachX .rotateGlyph{font-size:76px;line-height:1;color:#a5f4c5;transform:rotate(-60deg)}
+@media(pointer:coarse) and (orientation:portrait){#breachX .rotatePrompt{display:flex}}
+@media(pointer:coarse) and (orientation:landscape){
+ html,body{width:100%;height:100%;margin:0;overflow:hidden}
+ #breachX{width:100%;max-width:none;height:100vh;height:100dvh;border:0;border-radius:0;display:flex;flex-direction:column}
+ #breachX .stage{height:100vh!important;height:100dvh!important;min-height:0!important;flex:1}
+ #breachX .footer{display:none}
+ #breachX .top{padding-top:max(4px,env(safe-area-inset-top));padding-left:max(8px,env(safe-area-inset-left));padding-right:max(8px,env(safe-area-inset-right))}
+ #breachX .plaque{padding:4px 7px}
+ #breachX .mini{width:72px;height:72px}
+ #breachX .overline{font-size:8px;letter-spacing:1px}
+ #breachX .clock{font-size:21px}
+ #breachX .stats{font-size:9px}
+ #breachX .stats strong{font-size:19px}
+ #breachX .fps{font-size:9px;margin-top:2px}
+ #breachX .settings{top:79px;left:max(8px,env(safe-area-inset-left))}
+ #breachX .settings button{padding:5px 7px;font-size:9px}
+ #breachX .bottom{bottom:auto;top:117px;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right))}
+ #breachX .big{font-size:20px}
+ #breachX .sm{font-size:9px}
+ #breachX .healthbar{width:75px;height:3px}
+ #breachX .feed{top:91px;right:max(10px,env(safe-area-inset-right))}
+ #breachX .banner{top:28%;font-size:14px}
+ #breachX .joy{width:94px;height:94px;left:calc(10px + env(safe-area-inset-left));bottom:max(11px,env(safe-area-inset-bottom))}
+ #breachX .nub{width:34px;height:34px;left:28px;top:28px}
+ #breachX .ctrl{width:46px;height:46px;font-size:9px}
+ #breachX .fire{right:calc(12px + env(safe-area-inset-right));bottom:max(15px,env(safe-area-inset-bottom));width:69px;height:69px;font-size:12px}
+ #breachX .ads{right:calc(19px + env(safe-area-inset-right));bottom:calc(92px + env(safe-area-inset-bottom))}
+ #breachX .reload{right:calc(100px + env(safe-area-inset-right));bottom:calc(92px + env(safe-area-inset-bottom))}
+ #breachX .jump{right:calc(94px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom))}
+ #breachX .sprint{left:calc(34px + env(safe-area-inset-left));bottom:calc(111px + env(safe-area-inset-bottom))}
+ #breachX .overlay{padding:8px 18px}
+ #breachX .menu{width:min(600px,100%);max-height:100%;overflow-y:auto}
+ #breachX .kicker{font-size:9px;letter-spacing:1.6px}
+ #breachX h2{font-size:clamp(26px,8vh,42px);margin:6px 0}
+ #breachX .desc{font-size:10px;line-height:1.38;margin:6px 0}
+ #breachX .chips{margin:7px 0;gap:4px}
+ #breachX .chips span{padding:4px 5px;font-size:8px}
+ #breachX .primary{padding:9px 20px;font-size:12px}
+}
 </style>
 <div id="breachX" tabindex="0">
+<div class="rotatePrompt" id="bxRotate" role="status"><div class="rotateGlyph">↻</div><strong>ROTATE YOUR PHONE</strong><span>BREACH is designed for landscape play.<br>Turn your device sideways to continue.</span></div>
 <div class="stage" id="bxStage">
 <canvas class="world" id="bxWorld"></canvas><canvas class="effects" id="bxFx"></canvas><div class="vignette"></div>
 <div class="hud"><div class="top"><canvas class="mini" id="bxRadar" width="128" height="128"></canvas><div class="topmid plaque"><div class="overline">FREE FOR ALL · DOCK 07</div><div class="clock" id="bxClock">03:00</div><div class="overline green">INDUSTRIAL YARD</div></div><div class="stats plaque">ELIMINATIONS<br><strong><span id="bxKills">0</span>/20</strong><br><span id="bxStreak">STREAK 0</span><div class="fps" id="bxFps">WEBGL</div></div></div>
@@ -46,7 +92,7 @@
 <div class="settings"><button id="bxQuality">GRAPHICS: AUTO</button><button id="bxLock">LOCK MOUSE</button><button id="bxPause">PAUSE</button></div>
 <div class="touch"><div class="joy" id="bxJoy"><div class="nub" id="bxNub"></div></div><button class="ctrl sprint" id="bxSprint">SPRINT</button><button class="ctrl fire" id="bxFire">FIRE</button><button class="ctrl ads" id="bxAds">AIM</button><button class="ctrl reload" id="bxReload">RELOAD</button><button class="ctrl jump" id="bxJump">JUMP</button></div>
 <div class="overlay" id="bxOverlay"><div class="menu"><div class="kicker">NEXT-GEN RETRO FPS // WEBGL</div><h2 id="bxTitle">BREACH<span>.</span><br>DOCK 07</h2><p class="desc" id="bxDesc">Drop into an industrial combat arena with procedural textures, detailed shipping containers, and animated 3D opponents. Headshots eliminate instantly; body shots require multiple hits.<br><br><b>Desktop:</b> WASD to move, mouse to look, left-click to fire, right-click to aim, Shift to sprint, Space to jump, R to reload, and 1/2 to switch weapons.<br><b>Mobile:</b> Use the virtual joystick to move and drag across the screen to look around.</p><div class="chips"><span>TRUE 3D</span><span>TEXTURES + LIGHTING</span><span>8 BOTS</span><span>2 WEAPONS</span></div><button class="primary" id="bxStart">START MATCH ›</button></div></div>
-</div><div class="footer"><b>BREACH // DOCK 07 · VISUAL V2</b> · WebGL rendering with procedural materials, detailed 3D environments, animated opponents, and visible weapon recoil. Lower the graphics quality if the game runs slowly.</div></div>
+</div><div class="footer"><b>BREACH // DOCK 07 · VISUAL V3</b> · WebGL rendering with procedural materials, detailed 3D environments, animated opponents, and visible weapon recoil. Lower the graphics quality if the game runs slowly.</div></div>
 <script>
 (()=>{
 'use strict';const root=document.getElementById('breachX');if(root.dataset.initialized)return;root.dataset.initialized='1';
@@ -56,11 +102,11 @@ if(!gl){$('bxDesc').textContent='WebGL is not available here. Try a modern brows
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),rnd=(a,b)=>a+Math.random()*(b-a),hyp=Math.hypot;
 let seed=271849;function random(){seed=(Math.imul(seed,1664525)+1013904223)|0;return (seed>>>0)/4294967296}
 const VERT=`attribute vec3 aPos;attribute vec3 aNormal;attribute vec2 aUV;attribute vec3 aTint;uniform vec3 uEye,uRight,uUp,uForward,uGunOffset;uniform vec2 uFocal,uClip;uniform float uWeapon;varying vec2 vUV;varying vec3 vLight;varying float vFog;void main(){vec3 pos=aPos;vec3 norm=aNormal;if(uWeapon>0.5){pos=uEye+uRight*(pos.x*.86+uGunOffset.x)+uUp*(pos.y*.86+uGunOffset.y)+uForward*(pos.z*.86+uGunOffset.z);norm=normalize(uRight*norm.x+uUp*norm.y+uForward*norm.z);}vec3 v=pos-uEye;float z=dot(v,uForward);gl_Position=vec4(dot(v,uRight)*uFocal.x,dot(v,uUp)*uFocal.y,z*uClip.x+uClip.y,z);float sun=max(dot(normalize(norm),normalize(vec3(.36,.82,.47))),0.);float sky=max(norm.y,0.);vLight=aTint*(.31+.83*sun+.10*sky);vUV=aUV;vFog=uWeapon>0.5?0.:smoothstep(23.,72.,z);}`;
-const FRAG=`precision mediump float;uniform sampler2D uAtlas;varying vec2 vUV;varying vec3 vLight;varying float vFog;void main(){vec4 albedo=texture2D(uAtlas,vUV);vec3 color=albedo.rgb*vLight;color=clamp((color-vec3(.42))*1.16+vec3(.42),0.,1.);color=mix(color,vec3(.48,.59,.63),vFog*.29);gl_FragColor=vec4(color,albedo.a);}`;
+const FRAG=`precision mediump float;uniform sampler2D uAtlas;uniform float uShadowPass;varying vec2 vUV;varying vec3 vLight;varying float vFog;void main(){vec4 albedo=texture2D(uAtlas,vUV);vec3 color=albedo.rgb*vLight;color=clamp((color-vec3(.42))*1.18+vec3(.42),0.,1.);color=mix(color,vec3(.47,.57,.61),vFog*.12);gl_FragColor=vec4(color,uShadowPass>0.5?albedo.a*.70:1.0);}`;
 function shader(kind,source){let s=gl.createShader(kind);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
 const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,VERT));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
-const stride=11*4,attrs={};for(let a of ['aPos','aNormal','aUV','aTint'])attrs[a]=gl.getAttribLocation(program,a);const U={};for(let a of ['uEye','uRight','uUp','uForward','uGunOffset','uFocal','uClip','uWeapon','uAtlas'])U[a]=gl.getUniformLocation(program,a);
-for(let a of Object.values(attrs))gl.enableVertexAttribArray(a);gl.uniform1i(U.uAtlas,0);
+const stride=11*4,attrs={};for(let a of ['aPos','aNormal','aUV','aTint'])attrs[a]=gl.getAttribLocation(program,a);const U={};for(let a of ['uEye','uRight','uUp','uForward','uGunOffset','uFocal','uClip','uWeapon','uAtlas','uShadowPass'])U[a]=gl.getUniformLocation(program,a);
+for(let a of Object.values(attrs))gl.enableVertexAttribArray(a);gl.uniform1i(U.uAtlas,0);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);
 // Self-generated PBR-like texture atlas: no image downloads.
 let atlas=document.createElement('canvas');atlas.width=atlas.height=1024;let ac=atlas.getContext('2d');const T=256;
 function tile(i){let x=i%4*T,y=(i/4|0)*T;ac.save();ac.translate(x,y);return()=>ac.restore()}
@@ -72,7 +118,11 @@ for(let i=0;i<16;i++){
  for(let x=0;x<T;x+=16){ac.fillStyle='#0e1b2633';ac.fillRect(x+1,0,4,T);ac.fillStyle='#fff4';ac.fillRect(x+9,0,2,T)}
  ac.fillStyle='#07182077';ac.fillRect(0,0,T,12);ac.fillRect(0,243,T,13);ac.fillStyle='#ffffff70';ac.font='bold 19px monospace';ac.fillText(['','CARGO 07','DOCK 16','BX-308','','','','','','','','','','','BX-019'][i]||'BAY 07',24,72);
  for(let j=0;j<60;j++){let x=random()*T,y=random()*T;ac.fillStyle='#4b251d27';ac.fillRect(x,y,3+random()*16,2+random()*13)}
- }else if(i===0){for(let j=0;j<40;j++){let x=random()*T,y=random()*T;ac.strokeStyle='#17282836';ac.lineWidth=1+random()*2;ac.beginPath();ac.moveTo(x,y);ac.lineTo(x+random()*30,y+random()*15);ac.stroke()}}
+ }else if(i===0){
+  // Matte asphalt: aggregate, rough chips and thin cracks, not a flat grey plane.
+  for(let j=0;j<1800;j++){let x=random()*T,y=random()*T,c=random();ac.fillStyle=c<.45?'#111b1a24':c<.84?'#c3cec134':'#a5afa82b';ac.fillRect(x,y,1+random()*3,1+random()*2)}
+  for(let j=0;j<12;j++){let x=random()*T,y=random()*T;ac.strokeStyle=j%2?'#1c272533':'#bac2b51c';ac.lineWidth=1+random()*1.4;ac.beginPath();ac.moveTo(x,y);ac.lineTo(x+random()*23-11,y+random()*12-6);ac.lineTo(x+random()*30-15,y+random()*25-12);ac.stroke()}
+}
  else if(i===4||i===13){ac.strokeStyle='#565f5970';ac.lineWidth=3;for(let y=4;y<T;y+=64){ac.beginPath();ac.moveTo(0,y);ac.lineTo(T,y);ac.stroke()}for(let x=6;x<T;x+=128){ac.beginPath();ac.moveTo(x,0);ac.lineTo(x,T);ac.stroke()}}
  else if(i===5){ac.fillStyle='#181a1e';for(let n=-T;n<T*2;n+=50){ac.beginPath();ac.moveTo(n,0);ac.lineTo(n+27,0);ac.lineTo(n+T+27,T);ac.lineTo(n+T,T);ac.fill()}}
  else if(i===6||i===9){for(let y=12;y<T;y+=34){ac.fillStyle='#0c1b222f';ac.fillRect(0,y,T,5);ac.fillStyle='#c2cfcf27';ac.fillRect(0,y+6,T,2)}}
@@ -106,7 +156,17 @@ function cylinder(x,y,z,r,h,mat,sides=9){
  let p=[x+r*Math.cos(a),y-h/2,z+r*Math.sin(a)],q=[x+r*Math.cos(b),y-h/2,z+r*Math.sin(b)];quad(p,q,[q[0],y+h/2,q[2]],[p[0],y+h/2,p[2]],mat)}
 }
 const obstacles=[];function solid(x,z,w,d,h,mat){obstacles.push({x,z,w,d,h});box(x,h/2,z,w,h,d,mat)}
-box(0,-.35,0,44,.7,44,0);for(let z of [-21.5,21.5])solid(0,z,44,.65,5,4);for(let x of [-21.5,21.5])solid(x,0,.65,44,5,4);
+box(0,-.35,0,44,.7,44,0);
+// Repeat the asphalt material every four metres so the floor has real scale and depth.
+// Solid, tightly tiled triangles sit above the underlying collision slab.
+for(let x=-22;x<22;x+=4)for(let z=-22;z<22;z+=4){
+ let tone=.86+random()*.19;
+ quad([x,.006,z+4],[x+4,.006,z+4],[x+4,.006,z],[x,.006,z],0,[tone,tone*.99,tone*.96]);
+}
+// Expansion joints and pavement seams.
+for(let x=-18;x<20;x+=8)box(x,.013,0,.028,.012,43,9,[.68,.70,.67]);
+for(let z=-18;z<20;z+=8)box(0,.014,z,43,.012,.028,9,[.68,.70,.67]);
+for(let z of [-21.5,21.5])solid(0,z,44,.65,5,4);for(let x of [-21.5,21.5])solid(x,0,.65,44,5,4);
 // Roads, paint, drains and marks.
 for(let z=-17;z<20;z+=5)box(0,.015,z,.18,.021,2.3,11,[.72,.73,.61]);
 for(let x of [-18,18])for(let z=-18;z<=18;z+=3.2)box(x,.02,z,.18,.025,1.6,5,[.8,.7,.5]);
@@ -163,7 +223,12 @@ box(0,4.8,-21.06,9,1.5,.11,11);box(0,4.85,-21.15,7.8,.8,.13,6);
 function makeBuffer(array,usage){let buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(array),usage);return{buf,count:array.length/11}}
 const worldMesh=makeBuffer(meshes.world,gl.STATIC_DRAW);meshes.world.length=0;
 active=meshes.shadow;
-for(let o of obstacles){if(o.h<3)continue;let rr=Math.max(o.w,o.d)/1.8;quad([o.x-rr,.012,o.z-rr],[o.x+rr,.012,o.z-rr],[o.x+rr,.012,o.z+rr],[o.x-rr,.012,o.z+rr],15)}
+for(let o of obstacles){
+  // Never cast giant full-yard dark overlays from perimeter walls.
+  if(o.w>11||o.d>11||o.h<.8)continue;
+  let sx=o.w/2+.60,sz=o.d/2+.60;
+  quad([o.x-sx,.022,o.z-sz],[o.x+sx,.022,o.z-sz],[o.x+sx,.022,o.z+sz],[o.x-sx,.022,o.z+sz],15);
+}
 const shadowMesh=makeBuffer(meshes.shadow,gl.STATIC_DRAW);meshes.shadow.length=0;
 // Camera-space 3D rifle, with optic, rail, magazine and hands.
 active=meshes.gun;
@@ -191,7 +256,7 @@ const dynamicBuffer=gl.createBuffer();let eyeRight=[1,0,0],eyeUp=[0,1,0],eyeForw
 function bindAndDraw(mesh){gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buf);gl.vertexAttribPointer(attrs.aPos,3,gl.FLOAT,false,stride,0);gl.vertexAttribPointer(attrs.aNormal,3,gl.FLOAT,false,stride,12);gl.vertexAttribPointer(attrs.aUV,2,gl.FLOAT,false,stride,24);gl.vertexAttribPointer(attrs.aTint,3,gl.FLOAT,false,stride,32);gl.drawArrays(gl.TRIANGLES,0,mesh.count)}
 function rayBlocked(x,z,xx,zz){let d=Math.hypot(xx-x,zz-z),steps=Math.ceil(d/.18);for(let i=1;i<steps;i++){let t=i/steps,X=x+(xx-x)*t,Z=z+(zz-z)*t;for(let o of obstacles){if(o.h>1.2&&Math.abs(X-o.x)<o.w/2&&Math.abs(Z-o.z)<o.d/2)return true}}return false}
 function coll(x,z,r=.26){if(Math.abs(x)>20.9-r||Math.abs(z)>20.9-r)return true;return obstacles.some(o=>o.h>1.2&&Math.abs(x-o.x)<o.w/2+r&&Math.abs(z-o.z)<o.d/2+r)}
-let lowFpsSeconds=0,autoQuality=true;let playing=false,paused=false,clock=180,kills=0,streak=0,best=0,gun=0,fireCD=0,reloadCD=0,flash=0,kick=0,hitCD=0,noticeCD=0,damageCD=0,spawnCD=0,ads=false,sprint=false,firing=false,joyX=0,joyY=0,joyId=null,lookId=null,lastX=0,lastY=0,last=0,walk=0,shells=[],tracers=[],sparks=[],feeds=[],keys={},quality=1,fps=60,frames=0,fpsAccum=0,audio=null;
+let lowFpsSeconds=0,autoQuality=true;const portraitScreen=window.matchMedia('(pointer:coarse) and (orientation: portrait)');let playing=false,paused=false,clock=180,kills=0,streak=0,best=0,gun=0,fireCD=0,reloadCD=0,flash=0,kick=0,hitCD=0,noticeCD=0,damageCD=0,spawnCD=0,ads=false,sprint=false,firing=false,joyX=0,joyY=0,joyId=null,lookId=null,lastX=0,lastY=0,last=0,walk=0,shells=[],tracers=[],sparks=[],feeds=[],keys={},quality=1,fps=60,frames=0,fpsAccum=0,audio=null;
 const player={x:0,z:-17,yaw:Math.PI/2,pitch:0,y:1.67,jump:0,vy:0,hp:100,protect:1.5};
 const guns=[{name:'BR-7 · CARBINE',ammo:30,max:30,stock:150,damage:26,delay:.106,spread:.008},{name:'VXR-9 · SMG',ammo:40,max:40,stock:200,damage:21,delay:.07,spread:.016}];
 const spawnPoints=[[1,-8],[8,-5],[-8,-5],[6,13],[-5,13],[13,15],[-15,8],[14,-13],[0,15]];
@@ -211,7 +276,7 @@ function shoot(){if(!playing||paused||fireCD>0||reloadCD>0||player.hp<=0)return;
  shells.push({x:renderW*.70,y:renderH*.78,vx:rnd(65,120),vy:rnd(-155,-75),life:.55});
  if(target){let b=target.b,head=target.part.zone==='head';b.hp=Math.max(0,b.hp-target.part.dmg);b.hit=.19;hitCD=.25;$('bxHit').textContent=head?'✕ HEADSHOT':'✕';sparks.push({x:renderW/2,y:renderH/2,life:.22});if(b.hp<=0){b.alive=false;b.dead=0;b.respawn=2.25;kills++;streak++;best=Math.max(best,streak);banner(head?'HEADSHOT +100':'+100 ELIMINATION');feeds.unshift('YOU  ✕  BOT '+String(b.id).padStart(2,'0'));feeds=feeds.slice(0,3);$('bxFeed').innerHTML=feeds.map(s=>'<div>'+s+'</div>').join('');if(kills>=20)end()}else banner(head?'HEADSHOT':'HIT '+(100-b.hp)+'%')}
  hud()}
-function update(dt){if(!playing||paused)return;clock-=dt;if(clock<=0){end();return}fireCD=Math.max(0,fireCD-dt);flash=Math.max(0,flash-dt);kick=Math.max(0,kick-dt*3.9);hitCD=Math.max(0,hitCD-dt);noticeCD=Math.max(0,noticeCD-dt);damageCD=Math.max(0,damageCD-dt);player.protect=Math.max(0,player.protect-dt);for(let s of tracers)s.life-=dt;tracers=tracers.filter(x=>x.life>0);for(let s of shells){s.life-=dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=330*dt}shells=shells.filter(x=>x.life>0);for(let s of sparks)s.life-=dt;sparks=sparks.filter(x=>x.life>0);
+function update(dt){if(!playing||paused||portraitScreen.matches){if(portraitScreen.matches)firing=false;return}clock-=dt;if(clock<=0){end();return}fireCD=Math.max(0,fireCD-dt);flash=Math.max(0,flash-dt);kick=Math.max(0,kick-dt*3.9);hitCD=Math.max(0,hitCD-dt);noticeCD=Math.max(0,noticeCD-dt);damageCD=Math.max(0,damageCD-dt);player.protect=Math.max(0,player.protect-dt);for(let s of tracers)s.life-=dt;tracers=tracers.filter(x=>x.life>0);for(let s of shells){s.life-=dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=330*dt}shells=shells.filter(x=>x.life>0);for(let s of sparks)s.life-=dt;sparks=sparks.filter(x=>x.life>0);
  if(reloadCD>0){reloadCD-=dt;if(reloadCD<=0){let g=guns[gun],n=Math.min(g.stock,g.max-g.ammo);g.stock-=n;g.ammo+=n;hud()}}
  if(player.hp<=0){spawnCD-=dt;if(spawnCD<=0){player.x=0;player.z=-17;player.hp=100;player.protect=2;hud()}}else{
  let forward=(keys.KeyW||keys.ArrowUp?1:0)-(keys.KeyS||keys.ArrowDown?1:0)-joyY;let side=(keys.KeyD?1:0)-(keys.KeyA?1:0)+joyX;let n=hyp(forward,side);if(n>1){forward/=n;side/=n}let speed=dt*(ads?2.2:sprint||keys.ShiftLeft?5.2:3.5),dx=(Math.cos(player.yaw)*forward-Math.sin(player.yaw)*side)*speed,dz=(Math.sin(player.yaw)*forward+Math.cos(player.yaw)*side)*speed;
@@ -249,8 +314,8 @@ function drawEffects(){let w=fx.width,h=fx.height;fxc.clearRect(0,0,w,h);
 function graphicsSize(){let r=stage.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,1.5),scale=quality===0?.71:quality===1?1.01:1.22;let w=Math.round(r.width*dpr*scale),h=Math.round(r.height*dpr*scale);w=clamp(w,320,1350);h=clamp(h,280,900);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}let d=Math.min(window.devicePixelRatio||1,1.5);let ew=Math.round(r.width*d),eh=Math.round(r.height*d);if(fx.width!==ew||fx.height!==eh){fx.width=ew;fx.height=eh}renderW=ew;renderH=eh}
 function render(){graphicsSize();gl.useProgram(program);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);const cy=Math.cos(player.yaw),sy=Math.sin(player.yaw),cp=Math.cos(player.pitch),sp=Math.sin(player.pitch);eyeRight=[-sy,0,cy];eyeForward=[cy*cp,sp,sy*cp];eyeUp=[-cy*sp,cp,-sy*sp];let n=.07,f=95,tan=Math.tan((ads?48:78)*Math.PI/360);
  gl.uniform3f(U.uEye,player.x,player.y+player.jump,player.z);gl.uniform3fv(U.uRight,eyeRight);gl.uniform3fv(U.uUp,eyeUp);gl.uniform3fv(U.uForward,eyeForward);gl.uniform2f(U.uFocal,1/(tan*canvas.width/canvas.height),1/tan);gl.uniform2f(U.uClip,(f+n)/(f-n),-2*f*n/(f-n));gl.uniform1f(U.uWeapon,0);gl.uniform3f(U.uGunOffset,0,0,0);
- gl.disable(gl.BLEND);gl.depthMask(true);bindAndDraw(worldMesh);
- gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);bindAndDraw(shadowMesh);gl.depthMask(true);gl.disable(gl.BLEND);
+ gl.disable(gl.BLEND);gl.depthMask(true);gl.uniform1f(U.uShadowPass,0);bindAndDraw(worldMesh);
+ gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.uniform1f(U.uShadowPass,1);bindAndDraw(shadowMesh);gl.depthMask(true);gl.disable(gl.BLEND);gl.uniform1f(U.uShadowPass,0);
  active=meshes.dynamic;meshes.dynamic.length=0;for(let b of bots)if(b.alive||b.dead<1)trooper(b);if(meshes.dynamic.length){gl.bindBuffer(gl.ARRAY_BUFFER,dynamicBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(meshes.dynamic),gl.DYNAMIC_DRAW);bindAndDraw({buf:dynamicBuffer,count:meshes.dynamic.length/11})}
  // Viewmodel uses a separate depth pass and smooth ADS + recoil movement.
  if(playing&&!paused){gl.clear(gl.DEPTH_BUFFER_BIT);gl.uniform1f(U.uWeapon,1);let sw=Math.sin(walk)*.007,sh=Math.abs(Math.cos(walk))*.008,aimX=ads?0:.31,aimY=ads?-.27:-.41;gl.uniform3f(U.uGunOffset,aimX+sw,aimY+sh-kick*.07,.36-kick*.06);bindAndDraw(gunMesh)}
@@ -262,7 +327,7 @@ $('bxQuality').addEventListener('click',()=>{autoQuality=false;quality=(quality+
 let fireButton=$('bxFire');fireButton.addEventListener('pointerdown',e=>{e.preventDefault();firing=true;fireButton.setPointerCapture(e.pointerId);shoot()});for(let ev of ['pointerup','pointercancel','lostpointercapture'])fireButton.addEventListener(ev,()=>firing=false);
 let joy=$('bxJoy'),nub=$('bxNub');function dragJoy(e){let r=joy.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2,l=hyp(x,y),m=Math.min(1,l/42);joyX=l?x/l*m:0;joyY=l?y/l*m:0;nub.style.transform=`translate(${joyX*33}px,${joyY*33}px)`}joy.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;joy.setPointerCapture(e.pointerId);dragJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)dragJoy(e)});function clearJoy(){joyId=null;joyX=joyY=0;nub.style.transform=''}joy.addEventListener('pointerup',clearJoy);joy.addEventListener('pointercancel',clearJoy);
 canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('pointerdown',e=>{if(!playing||paused)return;root.focus({preventScroll:true});lookId=e.pointerId;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);if(e.pointerType==='mouse'){if(e.button===2)ads=true;else if(e.button===0){firing=true;shoot()}}});canvas.addEventListener('pointermove',e=>{if(document.pointerLockElement===canvas||lookId!==e.pointerId)return;look(e.clientX-lastX,e.clientY-lastY,e.pointerType!=='mouse');lastX=e.clientX;lastY=e.clientY});canvas.addEventListener('pointerup',e=>{lookId=null;firing=false;if(e.pointerType==='mouse'&&e.button===2)ads=false});canvas.addEventListener('pointercancel',()=>{lookId=null;firing=false});document.addEventListener('mousemove',e=>{if(document.pointerLockElement===canvas&&playing&&!paused)look(e.movementX,e.movementY,false)});
-window.addEventListener('keydown',e=>{if(!playing||paused||!(document.activeElement===root||root.contains(document.activeElement)))return;keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(!e.repeat){if(e.code==='KeyR')reloadGun();if(e.code==='Space'&&!player.jump)player.vy=5.4;if(e.code==='Digit1'||e.code==='Digit2'){gun=e.code==='Digit1'?0:1;reloadCD=0;hud()}if(e.code==='Escape'&&document.pointerLockElement!==canvas)togglePause()}});window.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{keys={};firing=false});
+window.addEventListener('keydown',e=>{if(!playing||paused||!(document.activeElement===root||root.contains(document.activeElement)))return;keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(!e.repeat){if(e.code==='KeyR')reloadGun();if(e.code==='Space'&&!player.jump)player.vy=5.4;if(e.code==='Digit1'||e.code==='Digit2'){gun=e.code==='Digit1'?0:1;reloadCD=0;hud()}if(e.code==='Escape'&&document.pointerLockElement!==canvas)togglePause()}});window.addEventListener('keyup',e=>{keys[e.code]=false});window.addEventListener('blur',()=>{keys={};firing=false});window.addEventListener('orientationchange',()=>{keys={};firing=false;last=performance.now()});
 quality=window.matchMedia?.('(pointer:coarse)').matches?1:2;$('bxQuality').textContent=quality===0?'GRAPHICS: LOW':'GRAPHICS: MEDIUM';last=performance.now();requestAnimationFrame(loop);
 })();
 </script></html>
