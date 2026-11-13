@@ -1,0 +1,19 @@
+{
+  "name": "BREACH — Dock 07",
+  "short_name": "BREACH",
+  "description": "Lightweight WebGL first-person shooter for quick browser matches.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#091820",
+  "theme_color": "#091820",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
