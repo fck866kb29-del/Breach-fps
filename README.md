@@ -33,3 +33,12 @@ The game currently lives in `index.html` for simple deployment. Future updates c
 The repository is public. GitHub Pages can serve the root `index.html` from the `main` branch after Pages is enabled in repository settings.
 
 BREACH is an independent original project. It does not use assets or branding from other FPS games.
+
+## Fullscreen and touch controls
+
+- **iPhone:** Use Safari → Share → **Add to Home Screen**, then launch BREACH from the new icon. This opens it as a standalone web app without Safari's address bar. Keep Portrait Orientation Lock off and turn the phone sideways.
+- **Other supported browsers:** Tap **FULLSCREEN** in the game. Where the Fullscreen API is unavailable, the button displays alternative instructions.
+- **Aiming:** Hold **AIM** while you want to zoom. Let go to return to normal view, so aiming cannot accidentally remain toggled on.
+- **Accidental browser zoom:** The game surface suppresses double-tap/pinch gestures during matches, while normal browser zoom remains available outside gameplay.
+
+iPhone Safari does not reliably permit arbitrary webpage elements to enter native fullscreen on demand. The Home Screen launch is the preferred iPhone workaround.
