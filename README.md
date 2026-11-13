@@ -20,6 +20,19 @@ You can open `index.html` locally in a modern WebGL-capable browser. To make it 
 - AI opponents, respawns, an elimination counter, and a radar
 - Touch controls and adjustable rendering quality
 
+## Controller support (first playtest version)
+
+BREACH is designed primarily for **mouse + keyboard**, with standard Xbox-compatible controllers and PlayStation DualSense controllers available through the browser Gamepad API.
+
+- **Left stick:** move; **right stick:** free look (with an adjustable-feeling stick response curve)
+- **LT/L2:** aim down sights; **RT/R2:** fire
+- **A/Cross:** jump; **X/Square:** reload; **Y/Triangle:** swap weapons
+- **L3 or LB/L1:** sprint; **Start/Options:** start or pause
+
+**Aim assist (controller only):** Gentle target slowdown near visible enemies and a tightly limited tracking correction when the user already moves the right stick toward the target. It does not automatically select enemies, aim at heads, or operate with mouse aiming. Use **ASSIST: ON/OFF** in the HUD to compare handling.
+
+This is a first-pass feel prototype, *not* a verified input-balanced multiplayer system. Final tuning requires real player testing and combat statistics. Touch controls remain temporarily for mobile testing, but the intended experience is desktop-first.
+
 ## Project status
 
 This repository currently contains a **single-player prototype with bots**. Online multiplayer, matchmaking, accounts, and anti-cheat are planned ideas—not implemented features.
